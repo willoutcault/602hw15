@@ -1,0 +1,89 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Question 1
+
+```{r}
+x = c(5.6,6.3,7,7.7,8.4) 
+y = c(8.8, 12.4, 14.8, 18.2, 20.8)
+fit <- lm(y ~ x)
+print(fit$coefficients)
+```
+
+Equation for the regression line for the given points is:
+$y = 4.26x + -14.80 $
+
+# Question 2
+
+```{r}
+f <- expression(24*x - 6*x*y^2 - 8*y^3)
+dx <- D(f, 'x')
+dy <- D(f, 'y')
+## I calculated our critical values by setting our dx and dy equations to 0.
+#cv = (-4, 2), (4, -2)
+## Now we calculate our second derivatives.
+d2x <- D(dx, 'x')
+d2y <- D(dy, 'y')
+dxy <- D(dx, 'y')
+## We evaluate our second derivatives using our critical values.
+x <- -4
+y <- 2
+a1 <- eval(d2x)
+b1 <- eval(d2y)
+c1 <- eval(dxy)
+x <- 4
+y <- -2
+a2 <- eval(d2x)
+b2 <- eval(d2y)
+c2 <- eval(dxy)
+## We evaluate our second derivative test using a, b, and c to get our value dtest at our critical point (-4, 2).
+dtest1 <- (a1*b1) - (c1^2)
+dtest2 <- (a2*b2) - (c2^2)
+## Our value for dtest is less than 0 for each point so we have found two saddle points (-4, 2) and (4, -2).
+```
+
+Our value for dtest is less than 0 for each point so we have found two <b> saddle points (-4, 2) and (4, -2). </b>
+
+# Question 3
+
+Let Qh and Qn be the amount of sold units for house and name brand respectively.
+
+$Qh = 81-21x+17y $
+$Qn = 40+11x-23y $
+
+Let Ph and Pn be the price for house and name brand respecively.
+
+$Ph = x $
+$Pn = y $
+
+$R(x, y) = (Qh*Ph) + (Qn*Pn) $
+
+$R(x, y) = (81x-21x^2+17yx) + (40y+11xy-23y^2) $
+
+If house brand sells for <b>`$2.30`</b> and name brand for <b>`$4.10`</b>
+
+```{r}
+x <- 2.30
+y <- 4.10
+(81*x-21*x^2+17*y*x) + (40*y+11*x*y-23*y^2)
+```
+
+The revenue will be <b>$116.62</b>.
+
+```{r}
+# x + y = 96 so we know y = 96 - x
+# We take the derivative of C(x,y) in respect to x after substituting y in terms of x:
+C <- expression((1/6)*x^2 + (1/6)*(96 - x)^2 + 7*x + 25*(96 - x) + 700)
+dx <- D(C, 'x')
+# Using our formula dx we find x is equal to 75 when the slope is 0 so y is equal to 21.
+```
+The most cost effective approach is <b> x = 75, y = 21 </b>.
+
+```{r}
+library(pracma)
+
+f <- function(x,y) exp(8*x+3*y) 
+ans <- integral2(f, 2, 4, 2, 4, reltol = 1e-10)
+```
